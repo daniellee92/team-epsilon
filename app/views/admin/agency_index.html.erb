@@ -1,0 +1,33 @@
+<h3>
+  <b>Agency Index</b>
+  <%= link_to raw('<i class=" icon-plus-sign icon-large" style="color: #3b5998;"></i>'), :action => 'add_agency' %>
+</h3>
+
+
+<table class="admin">
+  <thead>
+    <tr>
+      <th width="150"><%= sortable_user "created_at", "Joined On" %></th>
+      <th width="220"><%= sortable_user "nickname", "Name" %></th>
+      <th width="220"><%= sortable_user "email", "Email" %></th>
+      <th width="150"><%= sortable_user "phone_number", "Phone No." %></th>
+      <th width="200"><%= sortable_user "address", "Address" %></th>
+      <th width="300"><%= sortable_user "description", "Description" %></th>
+      <th width="100"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @agencies.each do |agency| %>
+      <tr>
+        <td><%= agency.created_at.strftime("%-d %b, %l:%M%P") %></td>
+        <td><%= agency.nickname %></td>
+        <td><%= agency.email %></td>
+        <td><%= agency.phone_number %></td>
+        <td><%= agency.address %></td>
+        <td><%= agency.description %></td>
+        <td><u><%= link_to 'Delete', { :controller => 'admin', :action => 'delete_user', :id => agency.id }, :id => agency.id, data: { confirm: "Are you sure you want to delete\nthe agency, " + agency.nickname + "?" } %></u></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

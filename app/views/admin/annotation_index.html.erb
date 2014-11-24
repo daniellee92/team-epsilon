@@ -1,0 +1,27 @@
+<h3><b>Annotation Index</b></h3>
+
+<table class="admin">
+  <thead>
+    <tr>
+      <th width="50">ID</th>
+      <th width="120">Image ID</th>
+      <th width="120">Feedback ID</th>
+      <th width="120">X-Axis</th>
+      <th width="120">Y-Axis</th>
+      <th>Details</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @annotations.each do |annotation| %>
+      <tr>
+        <td><%= annotation.id %></td>
+        <td><%= annotation.image_id %></td>
+        <td><%= Image.find(annotation.image_id).feedback_id %></td>
+        <td><%= annotation.x_axis %></td>
+        <td><%= annotation.y_axis %></td>
+        <td><%= annotation.details %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

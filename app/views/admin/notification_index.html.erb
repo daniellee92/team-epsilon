@@ -1,0 +1,37 @@
+<h3><b>Notification Index</b></h3>
+
+<table class="admin">
+  <thead>
+    <tr>
+      <th width="30">ID</th>
+      <th width="120">Created_at</th>
+      <th>Feedback ID</th>
+      <th>User ID</th>
+      <th>User Nickname</th>
+      <th>Agency ID</th>
+      <th>Agency Nickname</th>
+      <th>Message (For notification)</th>
+      <th>Message (For Agency)</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @notifications.each do |notification| %>
+      <tr>
+        <td><%= notification.id %></td>
+        <td><%= notification.created_at.strftime("%-d %b, %l:%M%P") %></td>
+        <td><%= notification.feedback_id %></td>
+        <td><%= notification.user_id %></td>
+        <td><%= User.find(notification.user_id).nickname %></td>
+        <td><%= notification.agency_id %></td>
+        <td>
+          <% if !notification.agency_id.blank? %>
+            <%= User.find(notification.agency_id).nickname %>
+          <% end %>
+        </td>
+        <td><%= notification.notification_user %></td>
+        <td><%= notification.notification_agency %></td> 
+      </tr>
+    <% end %>
+  </tbody>
+</table>

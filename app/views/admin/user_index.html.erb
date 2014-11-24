@@ -1,0 +1,53 @@
+<h3><b>User Index</b></h3>
+
+<div style="margin-top: 20px; margin-bottom: 5px;" >
+  <% 
+    user_size = @users.total_entries
+    last_user = @users.current_page * 20
+    first_user = last_user - 19
+
+    if user_size < last_user
+      last_user = user_size
+    end 
+  %>
+  <%= user_size %> Users | Showing <%= first_user.to_s %> - <%= last_user.to_s %>
+</div>
+
+<table class="admin">
+  <thead>
+    <tr>
+      <!-- <th width="120"><%= sortable_user "created_at", "Joined On" %></th> -->
+      <th width="50"><%= sortable_user "id", "ID" %></th>
+      <th width="200"><%= sortable_user "nickname", "Nickname" %></th>
+      <th width="300"><%= sortable_user "email", "Email" %></th>
+      <th width="100"><%= sortable_user "phone_number", "Phone No." %></th>
+      <th width="100"><%= sortable_user "status", "Status" %></th>
+      <th width="100">Suspend?</th>
+      <th width="100"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <!-- <td><%= user.created_at.strftime("%-d %b, %l:%M%P") %></td> -->
+        <td style="text-align: center;"><%= user.id %></td>
+        <td><%= user.nickname %></td>
+        <td><%= user.email %></td>
+        <td><%= user.phone_number %></td>
+        <td><%= user.status %></td>
+        <% if user.status == "Suspended" %>
+          <td><u><%= link_to 'Unsuspend', { :controller => 'admin', :action => 'unsuspend_user', :id => user.id } %></u></td>  
+        <% else %>
+          <td><u><%= link_to 'Suspend', { :controller => 'admin', :action => 'suspend_user', :id => user.id } %></u></td>
+        <% end %>
+
+        <td><u><%= link_to 'Delete', { :controller => 'admin', :action => 'delete_user', :id => user.id }, :id => user.id, data: { confirm: "Are you sure you want to delete\nthe user, " + user.nickname + "?" } %></u></td> 
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<div style="margin-top: -15px">
+  <%= will_paginate @users, renderer: BootstrapPagination::Rails %>
+</div>

@@ -1,0 +1,20 @@
+<h3>Add Agency</h3>
+<div class="horizontal-line2"></div>
+
+<%= form_tag url_for(:action => 'add_agency') do %> 
+  
+  <div><b>Name<font color="red">*</font></b><br />
+  <%= text_field_tag :nickname, nil, required: true %></div> 
+
+  <div><b>Email<font color="red">*</font></b><br />
+  <%= email_field_tag :email, nil, required: true %></div>
+
+  <div><b>Description<font color="red">*</font></b><br />
+  <%= text_area_tag :description, nil, required: true %></div>
+
+  <br />
+  <div style="color: red;">* Compulsory fields</div>
+
+  <br />
+  <%= submit_tag("Add Agency") %>
+<% end %>

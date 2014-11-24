@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  x_axis: 1.5
+  y_axis: 1.5
+  details: MyString
+
+two:
+  x_axis: 1.5
+  y_axis: 1.5
+  details: MyString

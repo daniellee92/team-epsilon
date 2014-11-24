@@ -1,0 +1,187 @@
+== Epsilon API ==
+
+Hosted      	: http://smu-epsilon.herokuapp.com
+
+
+Function	: Register
+URL		: /api/registrations
+HTTP Method 	: post
+Input		: nickname, email, phone_number, password, password_confirmation
+Response	: auth_token
+
+
+Function	: Check if email exists
+URL		: /api/users/email_exists
+HTTP Method 	: post
+Input		: user_email
+Response	: true/false
+
+
+Function	: Facebook Login
+URL		: /api/users/facebook_login
+HTTP Method 	: post
+Input		: user_email
+Response	: auth_token
+
+
+Function	: Login
+URL		: /api/sessions
+HTTP Method 	: post
+Input		: email, password
+Response	: auth_token / error
+
+
+Function	: Logout
+URL		: /api/sessions
+HTTP Method 	: delete
+Input		: auth_token
+Response	: "Auth_token has been reset."
+
+
+Function	: Send SMS Verification Code
+URL		: /api/verifications/create
+HTTP Method 	: post
+Input		: auth_token
+Response	: delivery_status
+			- DeliveredToTerminal
+			- DeliveryUncertain
+			- DeliveryImpossible
+			- MessageWaiting
+			- DeliveredToNetwork
+
+
+Function	: Verify SMS Verification Code
+URL		: /api/verifications/verify
+HTTP Method 	: post
+Input		: auth_token, verification_code_user
+Response	: verification_message
+			- Verified.
+			- Verification code has expired.
+			- Verification failed.
+			- Already verified.
+
+
+Function	: Get User
+URL		: /api/users/get_user
+HTTP Method 	: post
+Input		: auth_token
+Response	: user, created_at
+
+
+Function	: Create Feedback with images and annotations
+URL		: /api/feedbacks/create
+HTTP Method 	: post
+Input		: auth_token, title, details, address, latitude, longitude, images_annotations
+Response	: "Feedback created with # images and # annotations." }
+Success Status 	: 201
+Note		: images_annotations has the following structure: 
+		  image$x_axis^y_axis^details$x_axis^y_axis^details | image
+
+
+Function	: Display All Feedbacks
+URL		: /api/feedbacks/display_all
+HTTP Method 	: post
+Input		: retrieve_before_time (format: yyyy-mm-dd HH:MM:SS)
+Response	: [Hash(feedback object, total_votes, total_comments, 1st image, annotations for 1st image)]
+
+
+Function	: Display My Feedbacks
+URL		: /api/feedbacks/display_mine
+HTTP Method 	: post
+Input		: retrieve_before_time (format: yyyy-mm-dd HH:MM:SS)
+Response	: [Hash(feedback object, total_votes, total_comments, 1st image, annotations for 1st image)]
+			
+
+Function	: Display Feedback Details
+URL		: /api/feedbacks/display_details
+HTTP Method 	: post
+Input		: feedback_id
+Response	: feedback, nickname, total_votes, total_comments, images_annotations
+
+
+Function	: Create Comment
+URL		: /api/feedbacks/create_comment
+HTTP Method	: post
+Input		: auth_token, feedback_id, details
+Response	: "Comment created."
+Success Status 	: 201
+
+
+Function	: Create Vote
+URL		: /api/feedbacks/create_vote
+HTTP Method	: post
+Input		: auth_token, feedback_id
+Response	: "Vote created."
+Success Status 	: 201
+
+
+Function	: Check if user has voted on feedback
+URL		: /api/feedbacks/check_vote
+HTTP Method	: post
+Input		: auth_token, feedback_id
+Response	: "Voted" or "Not voted"
+Success Status 	: 200
+
+
+Function	: Unvote
+URL		: /api/feedbacks/unvote
+HTTP Method	: delete
+Input		: auth_token, feedback_id
+Response	: "Vote destroyed."
+Success Status 	: 200
+
+
+Function	: Get Comments
+URL		: /api/feedbacks/get_comments
+HTTP Method	: post
+Input		: feedback_id
+Response	: comments_nicknames [Hash of comment and nickname]
+Success Status 	: 200
+
+
+Function	: Report Feedback as abusive
+URL		: /api/feedbacks/report_abuse
+HTTP Method	: post
+Input		: auth_token, feedback_id, abuse_reason
+Response	: "Feedback Reported."
+Success Status 	: 200
+
+
+Function	: Assign Feedback progress status
+URL		: /api/feedbacks/assign_progress_status
+HTTP Method	: post
+Input		: feedback_id, progress_status_new ("In Progress" or "Resolved")
+Response	: "Progress status assigned."
+Success Status 	: 200
+
+
+Function	: Change Password
+URL		: /api/users/change_password
+HTTP Method	: post
+Input		: auth_token, password, new_password
+Response	: "Changed password."
+Success Status 	: 200
+
+
+Function	: Get New Notifications
+URL		: /api/notifications/get_new_notifications
+HTTP Method	: post
+Input		: auth_token, newest_notification_id
+Response	: notifications (Returns all notifications after newest_notification_id)
+Success Status 	: 200
+
+
+Function	: Get More Notifications
+URL		: /api/notifications/get_more_notifications
+HTTP Method	: post
+Input		: auth_token, oldest_notification_id
+Response	: notifications (Returns next 10 notifications after oldest_notification_id. If oldest_notification_id == 0, returns first 10 notications.)
+Success Status 	: 200
+
+
+Function	: Get Agency
+URL		: /api/users/get_agency
+HTTP Method	: post
+Input		: agency_id
+Response	: agency
+Success Status 	: 200

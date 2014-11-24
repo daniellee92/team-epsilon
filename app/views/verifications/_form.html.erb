@@ -1,0 +1,23 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-6">
+			<h2>Mobile Verification</h2>
+
+			<p>
+			Hi <%= @nickname %>, <br>
+			Please enter the OTP sent to your mobile phone (+65 <%= @phone_number %>) to complete your registration.
+			</p>
+
+			<%= form_tag("/verifications/verify") do %>
+			  <%= label_tag(:verification_code_user, "OTP:") %>
+			  <%= text_field_tag(:verification_code_user) %><br>
+			  <%= submit_tag("Verify") %>
+			<% end %>
+
+			<br>
+			<%= form_tag("/verifications/create") do %>
+				<%= submit_tag("Resend OTP") %>
+			<% end %>
+		</div>
+	</div>
+</div>

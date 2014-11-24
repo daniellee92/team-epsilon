@@ -1,0 +1,52 @@
+<div class="column col-md-1"></div>
+
+<div class="column col-md-10">
+
+<% 
+  limit = 25
+  if @users.size < limit
+    limit = @users.size
+  end
+%>
+
+<h3><i class=" icon-star" style="color: #ff8000;"></i> <b>User Ranking (Top <%= limit %> By <%= @sort_type %>)</b></h3>
+
+<table class="admin" style="width:900px">
+  <thead>
+    <tr>
+      <th width="80">Rank</th>
+      <th width="300">Nickname</th>
+      <th width="130"><%= link_to 'Total Activity', { :controller => 'ranking', :action => 'index', :sort_type => 'Total Activity' } %></th>
+      <th width="130"><%= link_to '#Feedbacks', { :controller => 'ranking', :action => 'index', :sort_type => '#Feedbacks' } %></th>
+      <th width="130"><%= link_to '#Comments', { :controller => 'ranking', :action => 'index', :sort_type => '#Comments' } %></th>
+      <th width="130"><%= link_to '#Votes', { :controller => 'ranking', :action => 'index', :sort_type => '#Votes' } %></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% i = 1 %>
+    <% @users.each do |user, value| %>
+      <% if i <= limit %>
+        <tr>
+          <td style="text-align: center;"><%= i %></td>
+          <td><%= user.nickname %></td>
+          <% feedbacks = user.feedbacks.count 
+             comments = user.comments.count
+             votes = user.votes.count
+             activities = feedbacks + comments + votes
+          %>
+          <td style="text-align: center;"><%= activities %></td>
+          <td style="text-align: center;"><u><%= link_to "#{feedbacks}", :controller => "feedbacks", :action => 'other', :other_user_id => user.id %></u></td>
+          <td style="text-align: center;"><%= comments %></td>
+          <td style="text-align: center;"><%= votes %></td>
+        </tr>
+        <% i += 1 %>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+
+Total Activity = #Feedbacks + #Comments + #Votes
+</div>
+
+<div class="column col-md-1"></div>

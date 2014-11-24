@@ -1,0 +1,33 @@
+<h3><b>User/Agency Index</b></h3>
+
+<table class="admin">
+  <thead>
+    <tr>
+      <th width="30"><%= sortable_user "id", "ID" %></th>
+      <th width="120"><%= sortable_user "created_at", "Joined On" %></th>
+      <th width="200"><%= sortable_user "nickname", "Nickname" %></th>
+      <th width="250"><%= sortable_user "email", "Email" %></th>
+      <th width="150"><%= sortable_user "phone_number", "Phone No." %></th>
+      <th width="100"><%= sortable_user "status", "Status" %></th>
+      <th width="100"><%= sortable_user "type", "Type" %></th>
+      <th>Authentication Token</th>
+      <th>Verification Code</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users_agencies.each do |user| %>
+      <tr>
+        <td><%= user.id %></td>
+        <td><%= user.created_at.strftime("%-d %b, %l:%M%P") %></td>
+        <td><%= user.nickname %></td>
+        <td><%= user.email %></td>
+        <td><%= user.phone_number %></td>
+        <td><%= user.status %></td>
+        <td><%= user.user_type %></td> 
+        <td><%= user.authentication_token %></td>
+        <td><%= user.verification_code %></td> 
+      </tr>
+    <% end %>
+  </tbody>
+</table>

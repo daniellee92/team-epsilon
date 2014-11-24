@@ -1,0 +1,91 @@
+<h3><b>Feedback Index</b></h3>
+
+<div style="margin-top: 20px; margin-bottom: 5px;" >
+  <% 
+    feedback_size = @feedbacks.total_entries
+    last_fb = @feedbacks.current_page * 20
+    first_fb = last_fb - 19
+
+    if feedback_size < last_fb
+      last_fb = feedback_size
+    end 
+  %>
+  <%= feedback_size %> Feedbacks | Showing <%= first_fb.to_s %> - <%= last_fb.to_s %>
+</div>
+
+<table class="admin">
+
+  <thead>
+    <tr>
+      <th width="5%"><%= sortable_feedback "id", "ID" %></th>
+      <th width="10%"><%= sortable_feedback "last_acted_at", "Last Acted On" %></th>
+      <th width="15%"><%= sortable_feedback "title", "Title" %></th>
+      <th width="30%"><%= sortable_feedback "details", "Details" %></th>
+      <th width="15%"><%= sortable_feedback "address", "Address" %></th>
+      <!-- <th width="80"><%= sortable_feedback "progress_status", "Progress Status" %></th> -->
+      <th width="10%"><%= sortable_feedback "abuse_status", "Abuse Status" %></th>
+      <!-- <th width="80"><%= sortable_feedback "handled_by", "Handled By" %></th> -->
+      <th width="10%"><%= sortable_feedback "reported_by", "Reported By" %></th>
+      <th></th>
+      <th></th>
+      <!-- <th></th> -->
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @feedbacks.each do |feedback| %>
+      <tr>
+        <td style="text-align: center;"><%= feedback.id %></td>
+        <td><%= feedback.last_acted_at.strftime("%-d %b, %l:%M%P") %></td>
+        <td><%= feedback.title %></td>
+        <td><%= feedback.details %></td>
+        <td><%= feedback.address %></td>
+
+        <% 
+          progress_status = feedback.progress_status 
+          if progress_status == "Marked As Resolved"
+            user_verification_deadline = feedback.datetime_marked_as_resolved + 3.days
+            if Time.now <= user_verification_deadline
+              progress_status = "Marked As Resolved (Pending User Verification)"
+            end
+          end 
+        %>
+        <!-- <td><%= progress_status %></td> -->
+        <td><%= feedback.abuse_status %></td>
+
+        <% 
+          agency_id = feedback.handled_by
+          if agency_id != nil
+            agency_name = User.find(agency_id).nickname
+          end
+
+          user_id = feedback.reported_by
+          if user_id != nil
+            user_name = User.find(user_id).nickname
+          end
+        %>
+        <!-- <td><%= agency_name %></td> -->
+        <td><%= user_name %></td>
+
+        <td><u><%= link_to 'View', { :controller => 'feedbacks', :action => 'show', :feedback_id => feedback.id } %></u></td>
+        <td><u><%= link_to 'Delete', { :controller => 'admin', :action => 'delete_feedback', :id => feedback.id }, :id => feedback.id, data: { confirm: "Are you sure you want to delete\nfeedback #" + feedback.id.to_s + "?" } %></u></td>
+
+        <!-- <td>
+          <%= form_tag url_for(:controller => 'admin', :action => 'assign_agency'), :class => 'form-search' do %> 
+            <%= hidden_field_tag :feedback_id, feedback.id %>
+            <div class="input-append">
+              <%= collection_select :user, :user_id, @agencies, :id, :nickname, prompt: "Agency?" %>
+            </div>
+            <%= submit_tag("Submit", data: { confirm: "Are you sure?" }) %>
+          <% end %>
+        </td> -->
+
+      </tr>
+    <% end %>
+  </tbody>
+
+</table>
+
+<div style="margin-top: -15px">
+  <%= will_paginate @feedbacks, renderer: BootstrapPagination::Rails %>
+</div>

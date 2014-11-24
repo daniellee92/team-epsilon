@@ -1,0 +1,37 @@
+<br>
+
+<div class="container" align="center">
+    <div class="panel panel-info" style="width: 50%;">
+
+        <div class="panel-heading">
+          <div class="row">
+              <h3 align="center"><i class="icon-envelope"></i> Notifications</h3>
+          </div>
+        </div>
+
+        <div class="panel-body">
+			<% if @notifications.size == 0 %>
+				<div style="margin-top: 10px;">
+					You have no notifications.
+				</div>
+
+			<% else %>
+				<div style="text-align: left; margin-top: 10px; margin-bottom: -26px;">
+					<% @notifications.each do |notification| %>
+						<div>
+							<%= notification.created_at.strftime("%-d %b, %l:%M%P") %><br/>
+							<% if current_user.user_type == "User" %>
+								<%= link_to notification.notification_user, { :controller => 'feedbacks', :action => 'show', :feedback_id => notification.feedback_id }, 'data-no-turbolink' => true, :target => "_blank" %>
+
+							<% elsif current_user.user_type == "Agency" %>
+								<%= link_to notification.notification_agency, { :controller => 'feedbacks', :action => 'show', :feedback_id => notification.feedback_id }, 'data-no-turbolink' => true, :target => "_blank" %>
+							<% end %>
+							<div class="horizontal-line" style="background-color: #c4cde0;"></div>
+						</div>
+					<% end %>
+				</div>
+			<% end %>
+        </div>
+
+    </div>
+</div>

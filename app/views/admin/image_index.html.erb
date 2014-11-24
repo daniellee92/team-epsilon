@@ -1,0 +1,23 @@
+<h3><b>Image Index</b></h3>
+
+<table class="admin">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Feedback ID</th>
+      <th>Feedback Title</th>
+      <th>Image Data</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @images.each do |image| %>
+      <tr>
+        <td><%= image.id %></td>
+        <td><%= Feedback.find(image.feedback_id).id %></td>
+        <td><%= Feedback.find(image.feedback_id).title %></td>
+        <td><%= image.image_data %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

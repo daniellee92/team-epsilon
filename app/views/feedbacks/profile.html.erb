@@ -1,0 +1,49 @@
+<br/>
+
+<div class="container" align="center">
+  <div class="row">
+    <div class="panel panel-info" style="width: 40%;">
+
+      <div class="panel-heading">
+        <div class="row">
+            <h3 align="center"><i class="icon-user"></i> <%= current_user.nickname%></h3>
+        </div>
+      </div>
+
+      <div class="panel-body" style="margin-top: 10px;">
+        <div class="row">
+          <!-- class="table table-user-information" -->
+          <table class="user-info">
+            <tbody>
+              <tr>
+                <td style="width: 35%;"><b>Email:</b></td>
+                <td><%= current_user.email %></td>
+              </tr>
+              <tr>
+                <td><b>Phone Number:</b></td>
+                <td><%= current_user.phone_number %></td>
+              </tr>
+              
+              <% if current_user.user_type == "Agency" %>
+                <tr>
+                  <td><b>Address:</b></td>
+                  <td><%= current_user.address %></td>
+                </tr>
+                <tr>
+                  <td><b>Description:</b></td>
+                  <td><%= current_user.description %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+
+          <div class="horizontal-line" style="background-color: #c4cde0; width: 95%; margin-top: -10px;"></div>
+          <!-- <u><%= link_to "Click here to change password", edit_user_registration_path %></u>  -->
+
+          <%= link_to raw("Click here to change password " '<i class=" icon-link icon-flip-horizontal"></i>'), edit_user_registration_path %>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
