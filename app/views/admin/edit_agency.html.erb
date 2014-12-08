@@ -1,0 +1,54 @@
+<br/>
+
+<div class="container" align="center">
+  <div class="row">
+    <div class="panel panel-info" style="width: 40%;">
+
+      <div class="panel-heading">
+        <div class="row">
+            <h3 align="center"><i class="icon-edit"></i> Edit Agency Details</h3>
+        </div>
+      </div>
+
+      <div class="panel-body" style="margin-top: 10px; margin-bottom: -20px;">
+        <div class="row" style="padding-left: 15px; padding-right: 15px;">
+
+          <%= form_tag url_for(:controller => 'admin', :action => 'edit_agency2'), :class => 'form-search' do %> 
+            <%= hidden_field_tag :id, @agency.id %>
+
+            <div style="margin-bottom:15px; text-align: left; ">
+              <b>Name</b><br/>
+              <%= @agency.nickname %>
+            </div>
+
+            <div style="margin-bottom:15px; text-align: left; ">
+              <b>Email</b><br/>
+              <%= @agency.email %>
+            </div>
+
+            <div style="margin-bottom:15px; text-align: left; ">
+              <b>Phone Number</b><br/>
+              <%= text_field_tag :phone_number, nil, placeholder: @agency.phone_number, class: "form-control", :style => "width: 100%" %>
+            </div>
+
+            <div style="margin-bottom:15px; text-align: left; ">
+              <b>Address</b><br/>
+              <%= text_field_tag :address, nil, placeholder: @agency.address, class: "form-control", :style => "width: 100%" %>
+            </div>
+            
+            <div style="margin-bottom:15px; text-align: left; ">
+              <b>Description</b><br/>
+              <%= text_area_tag :description, nil, placeholder: @agency.description, class: "form-control", :style => "width: 100%" %>
+            </div>
+            
+            <div class="horizontal-line" style="background-color: #c4cde0; width: 100%;"></div>
+
+            <%= submit_tag("Edit Agency", style: "color: white; background: #3b5998;") %>
+          <% end %>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

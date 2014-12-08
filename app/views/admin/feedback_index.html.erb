@@ -22,13 +22,13 @@
       <th width="15%"><%= sortable_feedback "title", "Title" %></th>
       <th width="30%"><%= sortable_feedback "details", "Details" %></th>
       <th width="15%"><%= sortable_feedback "address", "Address" %></th>
-      <!-- <th width="80"><%= sortable_feedback "progress_status", "Progress Status" %></th> -->
+      <th width="80"><%= sortable_feedback "progress_status", "Progress Status" %></th>
       <th width="10%"><%= sortable_feedback "abuse_status", "Abuse Status" %></th>
-      <!-- <th width="80"><%= sortable_feedback "handled_by", "Handled By" %></th> -->
+      <th width="80"><%= sortable_feedback "handled_by", "Handled By" %></th>
       <th width="10%"><%= sortable_feedback "reported_by", "Reported By" %></th>
       <th></th>
       <th></th>
-      <!-- <th></th> -->
+      <th></th>
     </tr>
   </thead>
 
@@ -50,7 +50,7 @@
             end
           end 
         %>
-        <!-- <td><%= progress_status %></td> -->
+        <td><%= progress_status %></td>
         <td><%= feedback.abuse_status %></td>
 
         <% 
@@ -64,13 +64,13 @@
             user_name = User.find(user_id).nickname
           end
         %>
-        <!-- <td><%= agency_name %></td> -->
+        <td><%= agency_name %></td>
         <td><%= user_name %></td>
 
         <td><u><%= link_to 'View', { :controller => 'feedbacks', :action => 'show', :feedback_id => feedback.id } %></u></td>
         <td><u><%= link_to 'Delete', { :controller => 'admin', :action => 'delete_feedback', :id => feedback.id }, :id => feedback.id, data: { confirm: "Are you sure you want to delete\nfeedback #" + feedback.id.to_s + "?" } %></u></td>
 
-        <!-- <td>
+        <td>
           <%= form_tag url_for(:controller => 'admin', :action => 'assign_agency'), :class => 'form-search' do %> 
             <%= hidden_field_tag :feedback_id, feedback.id %>
             <div class="input-append">
@@ -78,7 +78,7 @@
             </div>
             <%= submit_tag("Submit", data: { confirm: "Are you sure?" }) %>
           <% end %>
-        </td> -->
+        </td>
 
       </tr>
     <% end %>

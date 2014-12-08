@@ -1,20 +1,38 @@
-<h3>Add Agency</h3>
-<div class="horizontal-line2"></div>
+<br/>
 
-<%= form_tag url_for(:action => 'add_agency') do %> 
-  
-  <div><b>Name<font color="red">*</font></b><br />
-  <%= text_field_tag :nickname, nil, required: true %></div> 
+<div class="container" align="center">
+  <div class="row">
+    <div class="panel panel-info" style="width: 40%;">
 
-  <div><b>Email<font color="red">*</font></b><br />
-  <%= email_field_tag :email, nil, required: true %></div>
+      <div class="panel-heading">
+        <div class="row">
+            <h3 align="center"><i class="icon-plus-sign"></i> Add Agency</h3>
+        </div>
+      </div>
 
-  <div><b>Description<font color="red">*</font></b><br />
-  <%= text_area_tag :description, nil, required: true %></div>
+      <div class="panel-body" style="margin-top: 10px; margin-bottom: -20px;">
+        <div class="row" style="padding-left: 15px; padding-right: 15px;">
 
-  <br />
-  <div style="color: red;">* Compulsory fields</div>
+          <%= form_tag url_for(:action => 'add_agency'), :class => 'form-search' do %> 
+            <div style="margin-bottom:15px; text-align: left; "><b>Name<font color="red">*</font></b><br />
+            <%= text_field_tag :nickname, nil, required: true, class: "form-control", :style => "width: 100%" %></div> 
 
-  <br />
-  <%= submit_tag("Add Agency") %>
-<% end %>
+            <div style="margin-bottom:15px; text-align: left; "><b>Email<font color="red">*</font></b><br />
+            <%= email_field_tag :email, nil, required: true, class: "form-control", :style => "width: 100%" %></div>
+
+            <div style="margin-bottom:15px; text-align: left; "><b>Description<font color="red">*</font></b><br />
+            <%= text_area_tag :description, nil, required: true, class: "form-control", :style => "width: 100%" %></div>
+
+            <div style="color: red; margin-bottom:15px; text-align: left; ">* Compulsory fields</div>
+
+            <div class="horizontal-line" style="background-color: #c4cde0; width: 100%;"></div>
+
+            <%= submit_tag("Add Agency", style: "color: white; background: #3b5998;") %>
+          <% end %>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

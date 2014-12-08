@@ -14,14 +14,10 @@ DeviseApiRailsWorking::Application.routes.draw do
   match '/admin/add_agency', :controller => 'admin', :action => 'add_agency', via: [:get, :post]
   match '/admin/suspend_user', :controller => 'admin', :action => 'suspend_user', via: [:get, :post]
   match '/admin/unsuspend_user', :controller => 'admin', :action => 'unsuspend_user', via: [:get, :post]
+  match '/admin/edit_agency', :controller => 'admin', :action => 'edit_agency', via: [:get, :post]
+  match '/admin/edit_agency2', :controller => 'admin', :action => 'edit_agency2', via: [:get, :post]
   # ------- Admin Routes End -------
 
-  # ------- Developer Routes Start -------
-  match '/admin/image_index', :controller => 'admin', :action => 'image_index', via: [:get, :post]
-  match '/admin/notification_index', :controller => 'admin', :action => 'notification_index', via: [:get, :post]
-  match '/admin/user_agency_index', :controller => 'admin', :action => 'user_agency_index', via: [:get, :post]
-  match '/admin/annotation_index', :controller => 'admin', :action => 'annotation_index', via: [:get, :post]
-  # ------- Developer Routes End -------
 
   # ------- Feedbacks Routes Start -------
   match '/feedbacks/index', :controller => 'feedbacks', :action => 'index', via: [:get, :post]
@@ -97,6 +93,6 @@ DeviseApiRailsWorking::Application.routes.draw do
     end
   end
 
-  root :to => "feedbacks#index" #, sort_type: "Last Updated"
+  root :to => "feedbacks#index"
 
 end

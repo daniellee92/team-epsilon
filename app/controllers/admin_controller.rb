@@ -14,6 +14,11 @@ class AdminController < ApplicationController
   end
 
   def assign_agency
+    if params[:user][:user_id].blank?
+      redirect_to({:action => "feedback_index"}, notice: 'No agency has been assigned.')
+      return
+    end 
+
     @feedback = Feedback.find(params[:feedback_id])
     prev_agency = @feedback.handled_by
     @feedback.handled_by = params[:user][:user_id]
@@ -34,7 +39,7 @@ class AdminController < ApplicationController
           Notification.create(feedback_id: @feedback.id, agency_id: prev_agency, notification_agency: notification_user)
         end
 
-        redirect_to({:action => "feedback_index"}, notice: 'Agency has been successfully assigned to feedback.')
+        redirect_to({:action => "feedback_index"}, notice: agency.nickname + ' has been successfully assigned to feedback #' + @feedback.id.to_s + '.')
     else
         render :feedbackIndex, notice: "Agency has failed to be assigned to feedback."
     end
@@ -110,22 +115,26 @@ class AdminController < ApplicationController
     end
   end
 
-  # ---------- Developer Index ----------
-
-  def image_index
-    @images = Image.all.order(created_at: :asc)
+  def edit_agency
+    @agency = User.find(params[:id])
   end
 
-  def notification_index
-    @notifications = Notification.all.order(created_at: :desc)
-  end
+  def edit_agency2
+    @agency = User.find(params[:id])
+    
+    if !params[:phone_number].blank?
+      @agency.update_attribute(:phone_number, params[:phone_number])
+    end
 
-  def user_agency_index
-    @users_agencies = User.all.order(sort_column_user + " " + sort_direction)
-  end
+    if !params[:address].blank?
+      @agency.update_attribute(:address, params[:address])
+    end
 
-  def annotation_index
-    @annotations = Annotation.all.order(created_at: :asc)
+    if !params[:description].blank?
+      @agency.update_attribute(:description, params[:description])
+    end
+
+      redirect_to({action: "agency_index"}, notice: @agency.nickname + "'s details has been successfully updated.")
   end
 
   # ---------- Private Methods ----------

@@ -167,22 +167,21 @@
       <div class="horizontal-line" style="background-color: black;"></div> 
 
       <!-- Progress Related Display Start -->
-      <!--
       <div style="font-size: 16px; padding-top: 8px;">  
         <% 
           progress_status = @feedback.progress_status
           display_assign_progress_status = false
 
           if progress_status == "Marked As Resolved"
-            user_verification_deadline = @feedback.datetime_marked_as_resolved + 50.seconds
+            user_verification_deadline = @feedback.datetime_marked_as_resolved + 3.days
             if Time.now <= user_verification_deadline
               progress_status = "Marked As Resolved (Pending User Verification)"
             end
           end 
         %>
-        <div style="margin-bottom: 5px;">
+        <!-- <div style="margin-bottom: 5px;"> -->
         	<b>Progress Status: </b><%= progress_status %>
-    	</div>
+    	<!-- </div> -->
 
         <% if !@feedback.handled_by.blank? %>
           <% agency = User.find(@feedback.handled_by) %>
@@ -203,13 +202,14 @@
 
         <% if display_assign_progress_status %>
           <%= form_tag url_for(:controller => 'feedbacks', :action => 'assign_progress_status'), :class => 'form-search' do %> 
+          <div class="input-group">
             <%= hidden_field_tag :feedback_id, @feedback.id %>
-            <%= select_tag(:progress_status_new, options_for_select({ "Resolved" => "Resolved", "Unresolved" => "In Progress" }), prompt: "Resolved?") %>
-            <%= submit_tag("Set Progress Status") %>
+            <%= select_tag(:progress_status_new, options_for_select({ "Resolved" => "Resolved", "Unresolved" => "In Progress" }), prompt: "Resolved?", required: true, :onchange => "this.form.submit();", class: "form-control", :style => "width: 120%") %>
+        </div>
           <% end %>
         <% end %>
       </div>
-  		-->
+ 
 
       <!-- *** Abuse Related Display Start *** -->
       <div style="font-size: 16px; margin-bottom: 5px;">

@@ -16,7 +16,7 @@
 <table class="admin">
   <thead>
     <tr>
-      <!-- <th width="120"><%= sortable_user "created_at", "Joined On" %></th> -->
+      <th width="120"><%= sortable_user "created_at", "Joined On" %></th>
       <th width="50"><%= sortable_user "id", "ID" %></th>
       <th width="200"><%= sortable_user "nickname", "Nickname" %></th>
       <th width="300"><%= sortable_user "email", "Email" %></th>
@@ -30,7 +30,7 @@
   <tbody>
     <% @users.each do |user| %>
       <tr>
-        <!-- <td><%= user.created_at.strftime("%-d %b, %l:%M%P") %></td> -->
+        <td><%= user.created_at.strftime("%-d %b, %l:%M%P") %></td>
         <td style="text-align: center;"><%= user.id %></td>
         <td><%= user.nickname %></td>
         <td><%= user.email %></td>
